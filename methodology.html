@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universe Case — Методологія, джерела та припущення</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#005AB6; --blue-light:#3E8BD6; --blue-soft:#E9F2FB;
+    --yellow:#FCB811; --yellow-soft:#FFF6E0;
+    --ink:#2A2A2A; --ink-2:#42424F; --muted:#71717F;
+    --bg:#F4F6FA; --white:#FFFFFF; --line:#E2E6EE;
+    --green:#1F9D6B; --amber:#E08A0B; --red:#D64535;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;}
+  a{color:var(--blue);}
+  .wrap{max-width:920px;margin:0 auto;padding:0 22px 90px;}
+
+  header.top{background:linear-gradient(135deg,#1c1c1c 0%,#003a78 60%,#005AB6 100%);color:#fff;padding:38px 0 30px;}
+  header.top .wrap{padding-bottom:0;}
+  .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);background:rgba(252,184,17,.16);padding:6px 14px;border-radius:999px;}
+  header.top h1{font-family:'Epilogue',sans-serif;font-size:31px;margin:14px 0 6px;letter-spacing:-.02em;}
+  header.top p{margin:0;color:rgba(255,255,255,.8);font-size:15.5px;max-width:680px;}
+
+  .toolbar{position:sticky;top:0;z-index:30;background:rgba(244,246,250,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 0;}
+  .toolbar .wrap{padding-bottom:0;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+  .chip{font-size:13px;font-weight:600;color:var(--ink-2);text-decoration:none;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;}
+  .chip:hover{background:var(--blue-soft);color:var(--blue);border-color:var(--blue-soft);}
+
+  section.sec{margin-top:34px;scroll-margin-top:70px;}
+  h2{font-family:'Epilogue',sans-serif;font-size:23px;margin:0 0 6px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;}
+  h2 .n{display:inline-flex;width:30px;height:30px;border-radius:8px;background:var(--blue);color:#fff;font-size:15px;font-weight:800;align-items:center;justify-content:center;}
+  h3{font-family:'Epilogue',sans-serif;font-size:17px;margin:22px 0 6px;color:var(--ink);}
+  p{margin:8px 0;font-size:15.5px;color:var(--ink-2);}
+  ul{margin:8px 0;padding-left:22px;}
+  li{font-size:15.5px;color:var(--ink-2);margin:4px 0;}
+  strong{color:var(--ink);}
+  .lead{font-size:16.5px;color:var(--ink);}
+
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);}
+  th{background:var(--blue-soft);color:var(--ink);font-weight:700;font-size:13px;}
+  tr:last-child td{border-bottom:none;}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tr.total td{font-weight:800;border-top:2px solid var(--ink);}
+
+  .callout{border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;font-size:14.5px;}
+  .callout.fact{border-color:var(--green);background:#E9F7F1;}
+  .callout.assume{border-color:var(--amber);background:var(--yellow-soft);}
+  .callout b{color:var(--ink);}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.04em;}
+  .tag.f{background:#D6F0E5;color:#0c6b46;} .tag.a{background:#FBEBCB;color:#8a5b07;}
+  .src{font-size:13px;color:var(--muted);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr;}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+  .card h3{margin-top:0;color:var(--blue);}
+  footer{margin-top:48px;color:var(--muted);font-size:13px;text-align:center;}
+  .backlink{display:inline-block;margin-top:18px;font-size:14px;font-weight:600;}
+  @media print{.toolbar{display:none;} header.top{-webkit-print-color-adjust:exact;print-color-adjust:exact;} section.sec{break-inside:avoid;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="badge">Universe · Business Associate Case</span>
+    <h1>Методологія, джерела та припущення</h1>
+    <p>Супровідний документ до презентації: на чому базуються рішення трьох завдань, що є підтвердженим фактом, а що — робочою гіпотезою під калібрування на внутрішніх даних компанії.</p>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap">
+    <a class="chip" href="#ctx">Контекст і джерела</a>
+    <a class="chip" href="#approach">Підхід</a>
+    <a class="chip" href="#t1">Завдання 1</a>
+    <a class="chip" href="#t2">Завдання 2</a>
+    <a class="chip" href="#t3">Завдання 3</a>
+    <a class="chip" href="#open">Відкриті питання</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- CONTEXT -->
+  <section class="sec" id="ctx">
+    <h2><span class="n">0</span> Контекст і джерела</h2>
+    <p class="lead">Усі три рішення побудовані навколо центральної тези завдання: головне обмеження зростання Universe з 5 до 15 бізнесів — наявність фаундерів, а не капітал чи інфраструктура.</p>
+    <table>
+      <thead><tr><th>Факт</th><th>Джерело</th></tr></thead>
+      <tbody>
+        <tr><td>Universe Group — київський продуктовий холдинг / venture builder (засн. 2017), що будує бізнеси зсередини</td><td class="src">uni.tech, Prospeo</td></tr>
+        <tr><td>~62 млн користувачів у 180 країнах</td><td class="src">uni.tech</td></tr>
+        <tr><td>Портфель: Guru Apps, FORMA, Wisey + R&amp;D-центр; холдинговий core — UniCore</td><td class="src">uni.tech/team, Prospeo</td></tr>
+        <tr><td>Два офіси: Київ (Поділ, HQ) та Європа / Варшава</td><td class="src">uni.tech, вакансії</td></tr>
+        <tr><td>Ruut (ruutlabs.com) — персональні тренувальні плани з quiz-led підпискою; поза портфелем Universe, але тісно співпрацюють</td><td class="src">ruutlabs.com</td></tr>
+        <tr><td>Wisey — підписковий застосунок персональної продуктивності з онбордингом-тестом</td><td class="src">wisey.app</td></tr>
+      </tbody>
+    </table>
+    <p class="src"><b>Про «5 бізнесів».</b> Портфель Universe — Guru Apps, FORMA, Wisey + R&amp;D-центр. П'ятий бізнес у рахунку «5→15» — Ruut, який формально не входить у портфель, але тісно співпрацює з групою. У матеріалах Ruut згадано саме як партнера поза портфелем.</p>
+    <p class="src"><b>Брендинг матеріалів.</b> Палітра й типографіка відповідають фірмовому стилю Universe (синій #005AB6, акцент #FCB811, темний #2A2A2A; шрифти Epilogue / Inter) за branding-аналізом uni.tech.</p>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="sec" id="approach">
+    <h2><span class="n">1</span> Підхід (спільний для трьох завдань)</h2>
+    <div class="grid2">
+      <div class="card"><h3>Funnel-мислення</h3><p>Фаундери, метрики бізнесів і тест попиту змодельовані як вимірювані поетапні воронки з конверсіями на кожному кроці.</p></div>
+      <div class="card"><h3>Явні припущення</h3><p>Кожна цифра позначена як <span class="tag a">гіпотеза</span> під калібрування на даних компанії, окремо від <span class="tag f">фактів</span> із відкритих джерел.</p></div>
+      <div class="card"><h3>Kill / go-no-go з числами</h3><p>У кожному завданні — заздалегідь визначені пороги рішення (продовжити / паузити / зупинити), а не загальне «подивимось».</p></div>
+      <div class="card"><h3>Час CEO як ресурс</h3><p>Рішення мінімізують навантаження на CEO та фаундерів (management by exception, автоматизація даних).</p></div>
+    </div>
+  </section>
+
+  <!-- TASK 1 -->
+  <section class="sec" id="t1">
+    <h2><span class="n">1</span> Завдання 1 — Founders Camp</h2>
+
+    <h3>Модель-референс</h3>
+    <p>Канал спроєктовано за моделлю <strong>talent-investing</strong>: збираємо сильних людей ще до ідеї та зводимо їх у фаундерів. Світові референси — <a href="https://www.joinef.com/">Entrepreneur First</a> та <a href="https://www.antler.co/">Antler</a> (cohort-based talent investors), а також Y Combinator (відбір + інтенсив + фінансування).</p>
+
+    <div class="callout assume"><b>На чому НЕ стоїть воронка.</b> Конверсії воронки не взято з опублікованих звітів EF/Antler — вони не розкривають поетапних конверсій публічно. Це <b>зворотний розрахунок</b> від цілі (2–3 фаундери) за загальною логікою accelerator/recruiting-воронок. EF/Antler — референси <i>моделі</i>, а не джерело точних відсотків. Кожен % валідується першим кемпом (Gate 1).</div>
+
+    <h3>Воронка (зворотний розрахунок від цілі)</h3>
+    <table>
+      <thead><tr><th>Етап</th><th class="num">Значення</th><th>Логіка</th></tr></thead>
+      <tbody>
+        <tr><td>Reach (якісний)</td><td class="num">8 000</td><td class="src">зворотний розрахунок</td></tr>
+        <tr><td>Заявки (≈6%)</td><td class="num">500</td><td class="src">конверсія «дотик → заявка»</td></tr>
+        <tr><td>Скринінг (≈24%)</td><td class="num">120</td><td class="src">CV + скринінг-дзвінок</td></tr>
+        <tr><td>Інтерв'ю (≈33%)</td><td class="num">40</td><td class="src">панель + кейс</td></tr>
+        <tr><td>Кемп</td><td class="num">20</td><td class="src">24 запрошено, ~17% відмов</td></tr>
+        <tr class="total"><td>Готові фаундери (15–20%)</td><td class="num">2–3</td><td class="src">ціль</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Застосовність до українського ринку</h3>
+    <p>Переноситься <strong>методологія, а не цифри</strong>. Економічна невизначеність діє у два боки: скорочує ризик-капітал, але збільшує пропозицію фаундерів (менше стабільних корпоративних опцій). Universe знімає головний бар'єр (капітал + інфраструктура + готові тезиси), тож фаундеру не треба самостійно піднімати гроші — це підвищує життєздатність моделі саме в стагнацію. Чистий ефект перевіряє перший кемп.</p>
+
+    <h3>Бюджет: Київ vs Варшава</h3>
+    <table>
+      <thead><tr><th>Стаття</th><th class="num">Київ, $</th><th class="num">Варшава, $</th></tr></thead>
+      <tbody>
+        <tr><td>Стипендії (20 × $1.5k / $2.2k × 1.5 міс)</td><td class="num">45 000</td><td class="num">66 000</td></tr>
+        <tr><td>Sourcing + маркетинг</td><td class="num">25 000</td><td class="num">30 000</td></tr>
+        <tr><td>Операції програми</td><td class="num">20 000</td><td class="num">25 000</td></tr>
+        <tr><td>Локація, події, матеріали</td><td class="num">10 000</td><td class="num">18 000</td></tr>
+        <tr><td>Резерв (~15%)</td><td class="num">15 000</td><td class="num">21 000</td></tr>
+        <tr class="total"><td>Разом</td><td class="num">≈ 115 000</td><td class="num">≈ 160 000</td></tr>
+        <tr class="total"><td>Вартість на фаундера (2–3)</td><td class="num">≈ 46 000</td><td class="num">≈ 64 000</td></tr>
+      </tbody>
+    </table>
+    <p class="src"><b>Sourcing + маркетинг</b> = реклама на залучення заявок + контент/лендинг кемпу + нетворк-івенти + час рекрутера. <b>Операції програми</b> = куратори + гонорари менторів + навчальний контент. Ставки — орієнтири (Київ — українські розцінки; Варшава — вищі стипендії/оренда за вартістю життя в PL), уточнюються кошторисом.</p>
+
+    <h3>Логіка рішень (gates)</h3>
+    <ul>
+      <li><b>Чому 6 тижнів:</b> team formation (1–2) + validation sprint (2) + MVP/тест попиту (1) + пітч (1). Баланс «достатньо для сигналу / стисло для темпу й економії стипендій»; діапазон 4–8 тижнів.</li>
+      <li><b>Локація:</b> рекомендація — пілот у Києві (дешевший тест каналу), Варшава — коли модель доведена й потрібен ширший EU-пул.</li>
+      <li><b>EIR</b> (у KILL-сценарії) = Entrepreneur in Residence: підприємець, найнятий, щоб збудувати бізнес зсередини — точкова альтернатива масовому кемпу.</li>
+      <li><b>SCALE-критерій</b> навмисно поміркований: рішення про регулярність кемпів спирається на результати ≥1 повного циклу, а не на разовий прогін.</li>
+    </ul>
+  </section>
+
+  <!-- TASK 2 -->
+  <section class="sec" id="t2">
+    <h2><span class="n">2</span> Завдання 2 — Процес бордів</h2>
+    <p>Рішення спирається на усталені практики portfolio governance: стандартний board pack, RAG-статуси, management by exception, OKR, North Star-метрика, портфельний дашборд. Це не вигадані, а індустріальні інструменти.</p>
+
+    <h3>Пояснення ключових принципів</h3>
+    <div class="grid2">
+      <div class="card"><h3>Self-serve дані</h3><p>Метрики <b>автоматично</b> підтягуються з BI-дашборда, а не збираються фаундером уручну в слайди. Підготовка до борду перестає бути ручною роботою на дні.</p></div>
+      <div class="card"><h3>Рішення, а не статуси</h3><p>Час борду йде не на переказ «як справи» (це й так у дашборді), а на те, чого дашборд не вирішить: рішення, зняття блокерів, ресурси, курс.</p></div>
+    </div>
+
+    <div class="callout"><b>RAG</b> = Red / Amber / Green — «світлофор» статусу: 🟢 норма · 🟡 увага · 🔴 проблема. Дає миттєву оцінку без занурення в цифри. Повний глосарій метрик (North Star, burn, runway, CAC, LTV/CAC, payback, retention, OKR) — у супровідному довіднику термінів.</div>
+
+    <div class="callout assume"><b>Дашборд (приклад).</b> Показники для Wisey, Guru Apps, FORMA та R&amp;D-центру в дашборді — <b>ілюстративні</b> (для демонстрації формату), а не реальні дані Universe. RAG-пороги стартові й калібруються під модель кожного бізнесу (підписка/реклама/маркетплейс).</div>
+
+    <h3>Як знято бюрократію</h3>
+    <p>Фаундер вручну додає лише 4 речі (3 wins, 3 ризики, asks, 1 стратегічна тема) — 30–60 хв замість днів. Зустріч стартує з питань по pre-read, а не з презентації. Тіринг A/B/C спрямовує глибокий час CEO лише на ~3–5 «червоних» бізнесів.</p>
+  </section>
+
+  <!-- TASK 3 -->
+  <section class="sec" id="t3">
+    <h2><span class="n">3</span> Завдання 3 — Wisey: тест вертикалі</h2>
+
+    <h3>Що таке Wisey</h3>
+    <p>Підписковий застосунок персональної продуктивності й самопочуття: бібліотека зі 100+ коротких відео-уроків і статей (прокрастинація, фокус, мотивація, навчання) + інструменти Daily Plan, Habit Builder, Deep Focus, Focus timer. Аудиторія — люди з прокрастинацією, проблемами фокусу, симптомами ADHD. Монетизація — підписка. Онбординг — <strong>тест/асесмент на 8–12 хв</strong>, за результатами якого збирається персональний план.</p>
+
+    <h3>Що таке «персональні тести» в межах таких продуктів</h3>
+    <p>У підписочних self-growth застосунках (Wisey, Noom, BetterMe, Ruut) персональний тест (quiz) — це <strong>основний механік залучення й монетизації</strong>, а не дрібна фіча. Воронка: реклама → короткий тест → персоналізований результат → персональний план → paywall (підписка). Тест одночасно виконує 4 функції:</p>
+    <ul>
+      <li><b>Залучення</b> — інтерактив втягує краще за звичайний лендинг;</li>
+      <li><b>Персоналізація → конверсія</b> — відчуття «це під мене» піднімає готовність платити;</li>
+      <li><b>Сегментація</b> — підбір оферу/ціни/контенту під сегмент;</li>
+      <li><b>Дані</b> — профіль користувача для таргетингу й покращення продукту.</li>
+    </ul>
+    <p>«Запуск нової вертикалі персональних тестів» = розширення цього механіку (нові типи тестів як окремі точки входу / під-продукти, що ведуть у підписку). Живий референс поруч — Ruut, побудований саме на quiz-led воронці.</p>
+
+    <h3>Методологія перевірки</h3>
+    <p>Lean-валідація від найдешевшого до платного: <b>desk research → smoke test (fake door) → Wizard of Oz (concierge) → pre-sale</b>. Інтерпретація вертикалі стійка: навіть якщо мався на увазі інший формат, методологія (поетапна валідація + пороги) не змінюється.</p>
+
+    <div class="callout"><b>Стек і потреба в розробці (чесно).</b> Стадії 0–2 йдуть <b>окремою воронкою поза застосунком</b>: лендинг на конструкторі без коду (Webflow/Unbounce), тест у Typeform, результат вручну готує коуч Wisey (concierge). Це майже без інженерів. Повна інтеграція в застосунок потрібна лише на стадії 3 (платний запуск) і тільки після рішення GO.</p></div>
+
+    <div class="callout assume"><b>Пороги — орієнтири, не самоціль.</b> Вирішальний якір — <b>побити поточну воронку та юніт-економіку Wisey</b> (CAC ≤ цільового, payback &lt; 3 міс). Конкретні floor-и (старт ≥35%, завершення ≥60% тощо) калібруються на реальних CAC/LTV/retention Wisey. Floor свідомо консервативний — щоб уникнути хибно-позитивних рішень; реальний бенчмарк — наявні цифри Wisey та Ruut.</div>
+  </section>
+
+  <!-- OPEN QUESTIONS -->
+  <section class="sec" id="open">
+    <h2><span class="n">?</span> Відкриті питання для уточнення</h2>
+    <p>Питання, відповіді на які дозволять замінити робочі гіпотези реальними даними та підвищити точність рішень:</p>
+    <ul>
+      <li>Який бюджет компанія готова виділити на пілотний Founders Camp?</li>
+      <li>Скільки бізнесів у портфелі зараз, на яких вони стадіях і які метрики CEO вважає головними сигналами здоров'я?</li>
+      <li>Які реальні CAC / LTV / retention у Wisey (для калібрування порогів Завдання 3)?</li>
+      <li>Що саме мається на увазі під «персональними тестами» у Wisey — новий канал залучення чи окремий під-продукт?</li>
+      <li>Чи є вже формат бордів, який працює добре і його варто зберегти?</li>
+    </ul>
+    <a class="backlink" href="index.html">← До всіх матеріалів кейсу</a>
+  </section>
+
+</div>
+<footer>Universe · Business Associate Case Task — методологія, джерела та припущення. Усі числові пороги — гіпотези під калібрування на даних компанії.</footer>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universe Case — Глосарій термінів і метрик</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#005AB6; --blue-light:#3E8BD6; --blue-soft:#E9F2FB;
+    --yellow:#FCB811; --yellow-soft:#FFF6E0;
+    --ink:#2A2A2A; --ink-2:#42424F; --muted:#71717F;
+    --bg:#F4F6FA; --white:#FFFFFF; --line:#E2E6EE;
+    --green:#1F9D6B; --amber:#E08A0B; --red:#D64535;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.45;}
+  a{color:var(--blue);}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px 80px;}
+
+  header.top{background:linear-gradient(135deg,#1c1c1c 0%,#003a78 60%,#005AB6 100%);color:#fff;padding:34px 0 26px;}
+  header.top .wrap{padding-bottom:0;}
+  .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);background:rgba(252,184,17,.16);padding:6px 14px;border-radius:999px;}
+  header.top h1{font-family:'Epilogue',sans-serif;font-size:30px;margin:14px 0 4px;letter-spacing:-.02em;}
+  header.top p{margin:0;color:rgba(255,255,255,.78);font-size:15px;}
+
+  .toolbar{position:sticky;top:0;z-index:30;background:rgba(244,246,250,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:8px;}
+  .toolbar .wrap{padding-bottom:0;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  #search{flex:1;min-width:220px;padding:11px 14px;border:1px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;background:#fff;outline:none;}
+  #search:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{font-size:13px;font-weight:600;color:var(--ink-2);text-decoration:none;padding:8px 13px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer;}
+  .chip:hover{background:var(--blue-soft);color:var(--blue);border-color:var(--blue-soft);}
+
+  section.grp{margin-top:30px;scroll-margin-top:80px;}
+  .grp-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .grp-num{display:inline-flex;width:34px;height:34px;border-radius:9px;background:var(--blue);color:#fff;font-family:'Epilogue',sans-serif;font-weight:800;align-items:center;justify-content:center;font-size:16px;}
+  .grp-head h2{font-family:'Epilogue',sans-serif;font-size:21px;margin:0;letter-spacing:-.01em;}
+  .grp-head .sub{color:var(--muted);font-size:14px;}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media(max-width:720px){.grid{grid-template-columns:1fr;}}
+  .term{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 16px;}
+  .term h3{margin:0 0 4px;font-size:15.5px;font-family:'Epilogue',sans-serif;color:var(--blue);}
+  .term h3 .en{color:var(--muted);font-weight:600;font-size:13px;font-family:'Inter',sans-serif;}
+  .term p{margin:0;font-size:14px;color:var(--ink-2);}
+  .term .say{margin-top:7px;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:6px;}
+  .term .say b{color:var(--ink-2);}
+  mark{background:var(--yellow-soft);color:inherit;padding:0 2px;border-radius:3px;}
+  .empty{display:none;color:var(--muted);font-size:14px;padding:8px 2px;}
+
+  .noresult{display:none;text-align:center;color:var(--muted);padding:40px;font-size:16px;}
+  footer{margin-top:40px;color:var(--muted);font-size:13px;text-align:center;}
+  @media print{
+    .toolbar{display:none;} header.top{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .term{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <span class="badge">Universe · Business Associate Case</span>
+    <h1>Глосарій термінів і метрик</h1>
+    <p>Довідник ключових понять і метрик, використаних у рішеннях. Згруповано за завданнями — скористайтесь пошуком.</p>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap">
+    <input id="search" type="text" placeholder="Пошук терміна… (напр. runway, RAG, fake door)" autocomplete="off">
+    <div class="chips">
+      <a class="chip" href="#g1">Завдання 1</a>
+      <a class="chip" href="#g2">Завдання 2</a>
+      <a class="chip" href="#g3">Завдання 3</a>
+      <a class="chip" href="#g0">Наскрізні</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="noresult" id="noresult">Нічого не знайдено за цим запитом.</p>
+
+  <!-- ===== TASK 1 ===== -->
+  <section class="grp" id="g1">
+    <div class="grp-head"><span class="grp-num">1</span><div><h2>Founders Camp</h2><span class="sub">залучення фаундерів · воронка · економіка</span></div></div>
+    <div class="grid">
+      <div class="term"><h3>Venture builder <span class="en">/ венчур-білдер</span></h3><p>Компанія, що <b>сама будує бізнеси зсередини</b> (дає капітал, інфраструктуру й команду), а не інвестує в чужі стартапи. Це модель Universe.</p></div>
+      <div class="term"><h3>Talent-investing <span class="en">/ talent investor</span></h3><p>Модель, де інвестують у <b>сильних людей ще до ідеї</b> та «зводять» їх у фаундерів. Світові приклади — Entrepreneur First, Antler.</p></div>
+      <div class="term"><h3>Entrepreneur First (EF) / Antler</h3><p>Світові «talent investors» — програми, що з окремих людей формують команди й фінансують їх. Референси-моделі нашого Founders Camp.</p></div>
+      <div class="term"><h3>Funnel <span class="en">/ воронка</span></h3><p>Поетапний шлях кандидата від першого дотику до результату; на кожному кроці частина відсіюється. Дозволяє рахувати «назад» від цілі.</p></div>
+      <div class="term"><h3>Conversion rate <span class="en">/ конверсія</span></h3><p>% тих, хто переходить з одного етапу воронки на наступний.</p></div>
+      <div class="term"><h3>Reach</h3><p>Кількість якісних людей, до яких ми «дотягнулися» (верх воронки).</p></div>
+      <div class="term"><h3>Sourcing</h3><p>Активний пошук і залучення кандидатів: аутріч, контент, реферали, івенти.</p></div>
+      <div class="term"><h3>Outreach <span class="en">/ аутріч</span></h3><p>Пряме звернення до потенційних кандидатів (а не лише чекати вхідних заявок).</p></div>
+      <div class="term"><h3>ICP <span class="en">Ideal Candidate Profile</span></h3><p>Портрет ідеального кандидата-фаундера: профілі, сигнали й анти-сигнали.</p></div>
+      <div class="term"><h3>Screening <span class="en">/ скринінг</span></h3><p>Первинний відсів кандидатів (CV + короткий скринінг-дзвінок).</p></div>
+      <div class="term"><h3>Stipend <span class="en">/ стипендія</span></h3><p>Виплата учаснику на час кемпу, щоб він міг працювати <b>full-time</b> без втрати доходу.</p></div>
+      <div class="term"><h3>Co-founder matching</h3><p>Процес зведення учасників у команди співзасновників за компліментарними навичками.</p></div>
+      <div class="term"><h3>Validation sprint</h3><p>Стислий етап перевірки бізнес-гіпотези: customer-інтерв'ю, smoke-тести, чекпойнти.</p></div>
+      <div class="term"><h3>MVP <span class="en">Minimum Viable Product</span></h3><p>Мінімальна версія продукту, достатня, щоб перевірити гіпотезу, не будуючи все.</p></div>
+      <div class="term"><h3>Investment Committee (IC)</h3><p>Орган (тут — Борд), що ухвалює рішення про інвестицію у фаундера/бізнес після пітчу.</p></div>
+      <div class="term"><h3>Term sheet</h3><p>Документ з умовами інвестиції: <b>сума, частка, підтримка</b>. Фіксує домовленість з фаундером.</p></div>
+      <div class="term"><h3>Vesting</h3><p>Поступове «заробляння» фаундером своєї частки з часом — захищає від раннього виходу.</p></div>
+      <div class="term"><h3>Institutional co-founder</h3><p>Коли Universe виступає інституційним співзасновником (інфраструктура + капітал + тезиси), знімаючи частину ризику.</p></div>
+      <div class="term"><h3>EIR <span class="en">Entrepreneur in Residence</span></h3><p>Досвідчений підприємець, найнятий, щоб <b>збудувати новий бізнес зсередини</b>. Альтернативний канал у KILL-сценарії.</p></div>
+      <div class="term"><h3>Acqui-hire</h3><p>Придбання компанії заради її <b>команди</b>, а не продукту. Ще один спосіб «дістати» фаундерів.</p></div>
+      <div class="term"><h3>Adverse selection</h3><p>Ризик, коли подаються переважно слабкі кандидати (ті, хто не знайшов роботи). Знімаємо активним аутрічем до топів.</p></div>
+      <div class="term"><h3>Kill-criteria / go-no-go gates</h3><p>Заздалегідь задані <b>пороги з числами</b>, за яких зупиняємо, паузимо або масштабуємо. Ознака сильної відповіді за умовами завдання.</p></div>
+      <div class="term"><h3>Cost per founder</h3><p>Вартість залучення одного фаундера (бюджет кемпу ÷ к-ть фаундерів). Аналог CAC, але для талантів.</p></div>
+    </div>
+  </section>
+
+  <!-- ===== TASK 2 ===== -->
+  <section class="grp" id="g2">
+    <div class="grp-head"><span class="grp-num">2</span><div><h2>Процес бордів</h2><span class="sub">governance · метрики здоров'я · дашборд</span></div></div>
+    <div class="grid">
+      <div class="term"><h3>Board <span class="en">/ борд</span></h3><p>Рада, що <b>ухвалює рішення й тримає курс</b> бізнесу — а не звітна нарада «як справи».</p></div>
+      <div class="term"><h3>Governance</h3><p>Система управління й нагляду за бізнесами портфеля.</p></div>
+      <div class="term"><h3>Portfolio management</h3><p>Управління портфелем бізнесів як цілим: де фокусувати час, гроші, увагу.</p></div>
+      <div class="term"><h3>Board pack</h3><p>Стандартний <b>1-сторінковий звіт</b> до борду з єдиним набором метрик для всіх бізнесів.</p></div>
+      <div class="term"><h3>RAG <span class="en">Red / Amber / Green</span></h3><p>«Світлофор» статусу: <b style="color:var(--green)">🟢 норма</b> · <b style="color:var(--amber)">🟡 увага</b> · <b style="color:var(--red)">🔴 проблема</b>. Миттєва візуальна оцінка без занурення в цифри.</p></div>
+      <div class="term"><h3>Management by exception</h3><p>Принцип: CEO фокусує глибокий час <b>лише на відхиленнях</b> («червоних»), а не на всіх однаково.</p></div>
+      <div class="term"><h3>Tiering <span class="en">/ тіринг</span></h3><p>Розподіл бізнесів за станом (A/B/C) для розподілу часу CEO та каденсу зустрічей.</p></div>
+      <div class="term"><h3>Cadence <span class="en">/ каденс</span></h3><p>Ритм і частота зустрічей (щомісяця / щокварталу залежно від тіру).</p></div>
+      <div class="term"><h3>Pre-read</h3><p>Матеріали, які учасники читають <b>до</b> зустрічі (за 48 год), щоб не витрачати час на переказ.</p></div>
+      <div class="term"><h3>Self-serve дані</h3><p>Метрики <b>автоматично</b> підтягуються з дашборда — фаундер не збирає їх уручну в слайди.</p></div>
+      <div class="term"><h3>North Star metric</h3><p>Одна головна метрика, що найкраще відображає <b>цінність продукту</b> (напр., активні підписники). За нею звіряють ріст.</p></div>
+      <div class="term"><h3>MRR / ARR</h3><p>Monthly / Annual Recurring Revenue — <b>регулярний дохід</b> від підписок за місяць / рік.</p></div>
+      <div class="term"><h3>Gross margin (GM%)</h3><p>Валова маржа: який % виручки лишається після прямих витрат на надання послуги. Вище = здоровіша економіка.</p></div>
+      <div class="term"><h3>Burn (rate)</h3><p>Скільки грошей бізнес <b>«спалює»</b> понад дохід за місяць.</p></div>
+      <div class="term"><h3>Runway</h3><p>На скільки <b>місяців вистачить грошей</b> за поточного burn. &lt;6 міс — червона зона.</p></div>
+      <div class="term"><h3>CAC <span class="en">Customer Acquisition Cost</span></h3><p>Скільки коштує залучити одного платного клієнта.</p></div>
+      <div class="term"><h3>LTV <span class="en">Lifetime Value</span></h3><p>Скільки грошей клієнт приносить за весь час життя.</p></div>
+      <div class="term"><h3>LTV / CAC</h3><p>Ключове співвідношення юніт-економіки. <b>Здорово &gt;3</b> — заробляємо втричі більше, ніж витрачаємо на залучення.</p></div>
+      <div class="term"><h3>Payback period</h3><p>За скільки <b>місяців окупається CAC</b> доходом від клієнта. Менше = краще.</p></div>
+      <div class="term"><h3>Retention (M3)</h3><p>Утримання: який % користувачів, що прийшли, лишаються активними/платять <b>через 3 місяці</b>.</p></div>
+      <div class="term"><h3>Cohort <span class="en">/ когорта</span></h3><p>Група користувачів, що прийшли в один період — щоб коректно міряти retention.</p></div>
+      <div class="term"><h3>MAU / DAU</h3><p>Monthly / Daily Active Users — місячні / денні активні користувачі.</p></div>
+      <div class="term"><h3>Activation</h3><p>% нових користувачів, що дійшли до ключової «aha»-дії (відчули цінність).</p></div>
+      <div class="term"><h3>OKR <span class="en">Objectives & Key Results</span></h3><p>Цілі та вимірювані ключові результати; борд відстежує прогрес до них (RAG по кожній цілі).</p></div>
+    </div>
+  </section>
+
+  <!-- ===== TASK 3 ===== -->
+  <section class="grp" id="g3">
+    <div class="grp-head"><span class="grp-num">3</span><div><h2>Тест вертикалі Wisey</h2><span class="sub">lean-валідація · воронка · пороги рішення</span></div></div>
+    <div class="grid">
+      <div class="term"><h3>Lean Startup</h3><p>Підхід <b>дешевої та швидкої перевірки гіпотез</b> замість будівництва всього продукту наосліп.</p></div>
+      <div class="term"><h3>Build–Measure–Learn</h3><p>Цикл lean: <b>побудувати → виміряти → навчитися</b>, і так по колу, дешевшаючи помилки.</p></div>
+      <div class="term"><h3>Quiz-led funnel <span class="en">/ тест-воронка</span></h3><p>Короткий <b>тест → персональний результат → план → підписка</b>. Серцевина монетизації таких застосунків (Wisey, Noom, BetterMe, Ruut).</p></div>
+      <div class="term"><h3>Fake door / smoke test</h3><p>«Двері без кімнати»: тестуємо попит на <b>ще неіснуючий</b> продукт (кнопка/лендинг → «результат скоро»).</p></div>
+      <div class="term"><h3>Landing page test</h3><p>Окрема сторінка + платний трафік для виміру реального попиту й конверсії.</p></div>
+      <div class="term"><h3>Wizard of Oz / concierge MVP</h3><p>Вручну надаємо послугу <b>під виглядом «продукту»</b> (ручний скоринг тесту), щоб перевірити цінність до розробки.</p></div>
+      <div class="term"><h3>Pre-sale</h3><p>Продаємо <b>до того, як побудовано</b>. Найсильніший сигнал попиту — люди платять реальні гроші.</p></div>
+      <div class="term"><h3>Paywall</h3><p>Екран, де користувач має <b>оплатити</b>, щоб отримати повний результат/доступ.</p></div>
+      <div class="term"><h3>Waitlist</h3><p>Список очікування для збору лідів до запуску продукту.</p></div>
+      <div class="term"><h3>CTR <span class="en">Click-Through Rate</span></h3><p>% кліків по рекламі відносно показів.</p></div>
+      <div class="term"><h3>CPC / CPM</h3><p>Cost Per Click / Cost Per Mille — вартість кліку / вартість 1000 показів.</p></div>
+      <div class="term"><h3>CPL / CPA</h3><p>Cost Per Lead / Cost Per Action — вартість одного ліда / цільової дії.</p></div>
+      <div class="term"><h3>Lead</h3><p>Потенційний клієнт, що залишив контакт (напр. email після тесту).</p></div>
+      <div class="term"><h3>Retention (D7)</h3><p>% користувачів, активних на <b>7-й день</b> після старту — ранній сигнал «чіпкості».</p></div>
+      <div class="term"><h3>Sample size <span class="en">/ розмір вибірки</span></h3><p>Скільки спостережень потрібно, щоб результат <b>не був шумом</b> (≥1000 візитів / ≥30 оплат для рішення).</p></div>
+      <div class="term"><h3>Statistical significance</h3><p>Статистична значущість — впевненість, що різниця/результат <b>не випадкові</b>.</p></div>
+      <div class="term"><h3>A/B test</h3><p>Порівняння двох варіантів (креатив/офер) на трафіку, щоб обрати кращий.</p></div>
+    </div>
+  </section>
+
+  <!-- ===== CROSS-CUTTING ===== -->
+  <section class="grp" id="g0">
+    <div class="grp-head"><span class="grp-num">★</span><div><h2>Наскрізні поняття</h2><span class="sub">спільні для всіх трьох завдань</span></div></div>
+    <div class="grid">
+      <div class="term"><h3>Assumptions <span class="en">/ припущення</span></h3><p>Явно виписані гіпотези, на яких стоять цифри. Сильний сигнал — казати «це гіпотеза під калібрування на ваших даних».</p></div>
+      <div class="term"><h3>Funnel thinking</h3><p>Мислення воронками: фаундери, метрики бізнесів і тест попиту — усе як вимірювані поетапні конверсії.</p></div>
+      <div class="term"><h3>Go / No-Go (gate)</h3><p>Точка рішення з наперед заданими порогами: продовжуємо, паузимо чи зупиняємо.</p></div>
+      <div class="term"><h3>Unit economics <span class="en">/ юніт-економіка</span></h3><p>Економіка «одного юніта» (клієнта/фаундера): CAC, LTV, payback — чи заробляємо більше, ніж витрачаємо.</p></div>
+    </div>
+  </section>
+</div>
+
+<footer>Universe · Business Associate Case Task — довідник термінів і метрик. Усі числові пороги — гіпотези під калібрування на даних компанії. · <a href="index.html">До всіх матеріалів кейсу</a></footer>
+
+<script>
+  const search=document.getElementById('search');
+  const terms=[...document.querySelectorAll('.term')];
+  const groups=[...document.querySelectorAll('.grp')];
+  const noresult=document.getElementById('noresult');
+  function clearMarks(el){el.querySelectorAll('mark').forEach(m=>{m.replaceWith(document.createTextNode(m.textContent));});el.normalize();}
+  search.addEventListener('input',()=>{
+    const q=search.value.trim().toLowerCase();
+    let visible=0;
+    terms.forEach(t=>{
+      clearMarks(t);
+      const txt=t.textContent.toLowerCase();
+      const hit=q===''||txt.includes(q);
+      t.style.display=hit?'':'none';
+      if(hit)visible++;
+    });
+    groups.forEach(g=>{
+      const any=[...g.querySelectorAll('.term')].some(t=>t.style.display!=='none');
+      g.style.display=any?'':'none';
+    });
+    noresult.style.display=visible===0?'block':'none';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universe — Business Associate Case Task</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#005AB6; --blue-light:#3E8BD6; --blue-soft:#E9F2FB;
+    --yellow:#FCB811; --ink:#2A2A2A; --ink-2:#42424F; --muted:#71717F;
+    --bg:#F4F6FA; --white:#FFFFFF; --line:#E2E6EE;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;min-height:100vh;}
+  a{text-decoration:none;color:inherit;}
+  .hero{background:linear-gradient(135deg,#1c1c1c 0%,#003a78 58%,#005AB6 100%);color:#fff;padding:56px 0 64px;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px;}
+  .badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);background:rgba(252,184,17,.16);padding:7px 15px;border-radius:999px;}
+  .hero h1{font-family:'Epilogue',sans-serif;font-size:40px;margin:18px 0 10px;letter-spacing:-.025em;line-height:1.08;}
+  .hero p{margin:0;color:rgba(255,255,255,.82);font-size:17px;max-width:680px;}
+  .hero .meta{margin-top:22px;font-size:14px;color:rgba(255,255,255,.6);}
+
+  .cards{margin-top:-40px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;padding-bottom:24px;}
+  @media(max-width:860px){.cards{grid-template-columns:1fr;}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 22px;box-shadow:0 8px 24px rgba(20,20,43,.06);transition:transform .15s ease, box-shadow .15s ease;display:flex;flex-direction:column;}
+  .card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(20,20,43,.12);}
+  .card .ic{width:46px;height:46px;border-radius:12px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;font-family:'Epilogue',sans-serif;margin-bottom:14px;}
+  .card h2{font-family:'Epilogue',sans-serif;font-size:20px;margin:0 0 6px;letter-spacing:-.01em;}
+  .card p{margin:0 0 16px;font-size:14.5px;color:var(--ink-2);flex:1;}
+  .card .go{font-size:14px;font-weight:700;color:var(--blue);}
+  /* featured (presentation) card */
+  .card.feature{background:linear-gradient(140deg,#003a78 0%,#005AB6 100%);border:none;box-shadow:0 12px 30px rgba(0,90,182,.28);position:relative;}
+  .card.feature h2,.card.feature p{color:#fff;}
+  .card.feature p{color:rgba(255,255,255,.85);}
+  .card.feature .ic{background:rgba(252,184,17,.2);color:var(--yellow);}
+  .card.feature .go{color:var(--yellow);}
+  .card.feature:hover{box-shadow:0 18px 40px rgba(0,90,182,.36);}
+  .feature-tag{position:absolute;top:16px;right:16px;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#1c1c1c;background:var(--yellow);padding:4px 10px;border-radius:999px;}
+
+  .about{margin:30px 0 60px;}
+  .about h3{font-family:'Epilogue',sans-serif;font-size:18px;margin:0 0 8px;}
+  .about p{font-size:15px;color:var(--ink-2);margin:6px 0;max-width:780px;}
+  .orig{margin-top:14px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--yellow);border-radius:0 12px 12px 0;padding:12px 16px;max-width:780px;}
+  .orig .lbl{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+  .orig a{display:inline-block;margin-top:3px;font-size:15px;font-weight:700;color:var(--blue);}
+  .tasks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px;}
+  @media(max-width:860px){.tasks{grid-template-columns:1fr;}}
+  .task{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+  .task b{color:var(--blue);font-family:'Epilogue',sans-serif;}
+  .task span{display:block;font-size:13.5px;color:var(--muted);margin-top:4px;}
+  footer{color:var(--muted);font-size:13px;padding:0 24px 40px;text-align:center;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="wrap">
+    <span class="badge">Universe · Business Associate</span>
+    <h1>Case Task — три рішення для CEO Universe</h1>
+    <p>Founders Camp · Процес бордів для бізнесів · Швидкий тест вертикалі Wisey. Структуровані рішення з funnel-логікою, конкретними цифрами, явними припущеннями та kill-критеріями.</p>
+    <div class="meta">Презентація та супровідні матеріали · українською</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="cards">
+    <a class="card feature" href="presentation.html">
+      <span class="feature-tag">Основний матеріал</span>
+      <div class="ic">▶</div>
+      <h2>Презентація</h2>
+      <p>Основний дек із рішеннями трьох завдань. Гортати стрілками; угорі — навігація по розділах.</p>
+      <span class="go">Відкрити презентацію →</span>
+    </a>
+    <a class="card" href="methodology.html">
+      <div class="ic">◷</div>
+      <h2>Методологія та джерела</h2>
+      <p>На чому базуються рішення: джерела, що є фактом, а що — гіпотезою під калібрування, розрахунки й логіка.</p>
+      <span class="go">Відкрити документ →</span>
+    </a>
+    <a class="card" href="glossary.html">
+      <div class="ic">≡</div>
+      <h2>Глосарій термінів</h2>
+      <p>Довідник усіх термінів і метрик із пошуком, згрупований за завданнями.</p>
+      <span class="go">Відкрити глосарій →</span>
+    </a>
+  </div>
+
+  <div class="about">
+    <h3>Про завдання</h3>
+    <p>Три кейси — реальні задачі, з якими CEO Universe стикається при масштабуванні з 5 до 15 бізнесів. Спільна теза: головне обмеження зростання — наявність фаундерів, а не капітал чи інфраструктура.</p>
+    <div class="orig">
+      <div class="lbl">Оригінальне завдання від компанії</div>
+      <a href="https://opaque-production-68e.notion.site/Associate-Case-Task-370ce9899cb7807e8933eb98d76cd26a" target="_blank" rel="noopener">Associate Case Task (Notion) ↗</a>
+    </div>
+    <div class="tasks">
+      <div class="task"><b>1 · Founders Camp</b><span>Канал залучення 2–3 нових фаундерів: воронка, бюджет (Київ/Варшава), kill-критерії.</span></div>
+      <div class="task"><b>2 · Процес бордів</b><span>Стандартний governance-процес, що дає сигнал по 15 бізнесах без бюрократії для фаундерів.</span></div>
+      <div class="task"><b>3 · Тест вертикалі Wisey</b><span>Швидка й дешева перевірка гіпотези персональних тестів із чіткими порогами рішення.</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>Universe · Business Associate Case Task · усі числові пороги — робочі гіпотези під калібрування на даних компанії.</footer>
+</body>
+</html>

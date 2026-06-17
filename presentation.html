@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universe — Business Associate Case Task</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#005AB6;
+    --blue-light:#3E8BD6;
+    --blue-soft:#E9F2FB;
+    --yellow:#FCB811;
+    --yellow-soft:#FFF6E0;
+    --ink:#2A2A2A;
+    --ink-2:#42424F;
+    --muted:#71717F;
+    --bg:#FFFFFF;
+    --white:#FFFFFF;
+    --line:#E5E8EE;
+    --green:#1F9D6B;
+    --amber:#E08A0B;
+    --red:#D64535;
+  }
+  .reveal{font-family:'Inter',system-ui,sans-serif;font-size:30px;color:var(--ink);}
+  .reveal .slides{text-align:left;}
+  .reveal section{padding:8px 10px;}
+  .reveal h1,.reveal h2,.reveal h3,.reveal h4{font-family:'Epilogue','Inter',sans-serif;color:var(--ink);font-weight:800;letter-spacing:-0.02em;text-transform:none;margin:0 0 .3em;line-height:1.1;}
+  .reveal h1{font-size:2.0em;}
+  .reveal h2{font-size:1.35em;}
+  .reveal h3{font-size:1.0em;}
+  .reveal p,.reveal li{line-height:1.35;}
+  .reveal strong{color:var(--blue);font-weight:700;}
+  .reveal a{color:var(--blue);}
+  .reveal ul{margin-left:1em;}
+  .reveal li{margin-bottom:.28em;}
+
+  .kicker{display:inline-block;font-size:.5em;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);background:var(--blue-soft);padding:6px 14px;border-radius:999px;margin-bottom:.6em;}
+  .muted{color:var(--muted);}
+  .small{font-size:.7em;}
+  .xsmall{font-size:.58em;}
+  .center{text-align:center;}
+
+  /* top navigation */
+  .topnav{position:fixed;top:0;left:0;right:0;height:38px;z-index:60;display:flex;align-items:center;gap:6px;justify-content:center;background:rgba(255,255,255,.86);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);font-family:'Inter',sans-serif;}
+  .topnav .brand{position:absolute;left:16px;font-weight:800;color:var(--ink);font-size:14px;letter-spacing:-.01em;}
+  .topnav .brand span{color:var(--yellow);}
+  .topnav a{font-size:13px;font-weight:600;color:var(--ink-2);text-decoration:none;padding:5px 12px;border-radius:7px;}
+  .topnav a:hover{background:var(--blue-soft);color:var(--blue);}
+
+  /* Title slide */
+  .title-slide{background:linear-gradient(135deg,#1c1c1c 0%,#003a78 60%,#005AB6 100%);color:#fff;border-radius:18px;padding:64px 60px;height:100%;display:flex;flex-direction:column;justify-content:center;}
+  .title-slide h1,.title-slide h2,.title-slide h3{color:#fff;}
+  .title-slide .kicker{background:rgba(252,184,17,.18);color:var(--yellow);}
+  .title-slide .muted{color:rgba(255,255,255,.72);}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 1px 0 rgba(20,20,43,.02);}
+  .card h3{color:var(--blue);font-size:.82em;margin-bottom:.35em;}
+  .card.dark{background:var(--ink);color:#fff;border:none;}
+  .card.dark h3{color:var(--yellow);}
+  .card.dark .muted{color:rgba(255,255,255,.65);}
+  .card.accent{background:var(--yellow-soft);border-color:#F3DDA4;}
+  .card.accent h3{color:var(--amber);}
+
+  .pill{display:inline-block;font-size:.55em;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--blue-soft);color:var(--blue);}
+  .case-badge{display:inline-block;font-size:.55em;font-weight:800;letter-spacing:.1em;color:#fff;background:var(--blue);padding:6px 14px;border-radius:8px;text-transform:uppercase;}
+
+  table{width:100%;border-collapse:collapse;font-size:.62em;}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);}
+  th{color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:.85em;}
+  tr:last-child td{border-bottom:none;}
+  .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;}
+  tbody tr.total td{font-weight:800;color:var(--ink);border-top:2px solid var(--ink);}
+  tbody tr.cpf td{color:var(--blue);font-weight:700;}
+  table.dense{font-size:.44em;}
+  table.dense th,table.dense td{padding:6px 6px;}
+
+  .rag{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+  .g{background:var(--green);} .a{background:var(--amber);} .r{background:var(--red);}
+  .tag-g{color:var(--green);font-weight:700;} .tag-a{color:var(--amber);font-weight:700;} .tag-r{color:var(--red);font-weight:700;}
+
+  .gate{border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:10px;font-size:.72em;}
+  .gate.kill{border-color:var(--red);background:#FBECEA;}
+  .gate.go{border-color:var(--green);background:#E9F7F1;}
+
+  .assume{font-size:.55em;color:var(--muted);border-top:1px dashed var(--line);margin-top:14px;padding-top:8px;}
+  .assume b{color:var(--ink-2);}
+
+  .funnel-step{display:flex;align-items:center;gap:14px;margin-bottom:9px;}
+  .funnel-bar{height:34px;background:linear-gradient(90deg,var(--blue),var(--blue-light));border-radius:7px;display:flex;align-items:center;color:#fff;font-weight:600;font-size:.6em;padding:0 12px;white-space:nowrap;}
+  .funnel-label{font-size:.66em;width:240px;flex-shrink:0;color:var(--ink-2);font-weight:500;}
+  .funnel-conv{font-size:.5em;color:var(--muted);width:78px;text-align:right;}
+
+  .reveal .slide-number{font-size:14px;color:var(--muted);}
+  .reveal section .step-num{display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;align-items:center;justify-content:center;font-size:.6em;margin-right:8px;}
+  .timeline{display:flex;gap:0;margin-top:10px;}
+  .tl{flex:1;border-top:3px solid var(--blue-light);padding:10px 8px 0;position:relative;font-size:.58em;}
+  .tl::before{content:'';position:absolute;top:-8px;left:0;width:13px;height:13px;border-radius:50%;background:var(--blue);}
+  .tl b{display:block;color:var(--blue);}
+  .loc{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .loc .opt{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.92em;}
+  .loc .opt b{color:var(--blue);}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="topnav">
+  <span class="brand">Uni<span>verse</span></span>
+  <a href="#/context">Контекст</a>
+  <a href="#/case1">Завдання 1</a>
+  <a href="#/case2">Завдання 2</a>
+  <a href="#/case3">Завдання 3</a>
+</div>
+<div class="slides">
+
+<!-- 1. TITLE -->
+<section data-background-color="#1c1c1c">
+  <div class="title-slide">
+    <span class="kicker">Universe · Business Associate Case Task</span>
+    <h1>Три рішення для CEO Universe</h1>
+    <h3 style="font-weight:500;opacity:.92;margin-top:.2em;">Founders Camp · Процес бордів портфеля · Швидкий тест вертикалі Wisey</h3>
+    <p class="muted" style="margin-top:1.4em;">Підготовлено як відповідь на кейс-завдання</p>
+  </div>
+</section>
+
+<!-- 2. CONTEXT -->
+<section id="context">
+  <span class="kicker">Вхідні дані</span>
+  <h2>Вхідні дані</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Хто такі Universe</h3>
+      <p class="small">Київський продуктовий холдинг / <strong>venture builder</strong> (засн. 2017): не інвестує в чужі стартапи, а <strong>будує бізнеси зсередини</strong> — дає капітал, інфраструктуру (маркетинг, аналітика, рекрут, фінанси) і команду.</p>
+      <p class="small muted">~62 млн користувачів у 180 країнах. Портфель: <strong>Guru Apps</strong>, <strong>FORMA</strong>, <strong>Wisey</strong> та <strong>R&D-центр</strong> (нові венчури). Поза портфелем, але тісний партнер — <strong>Ruut</strong> (персональні тренувальні плани).</p>
+    </div>
+    <div class="card dark">
+      <h3>Основне обмеження та ціль</h3>
+      <p class="small"><strong style="color:#fff">Ціль:</strong> вирости з <strong style="color:#fff">5 до 15 бізнесів за 2–3 роки</strong>.</p>
+      <p class="small"><strong style="color:#fff">Обмеження:</strong> не гроші й не інфраструктура, а <strong style="color:#fff">наявність фаундерів</strong>. Звідси — потреба в каналі залучення білдерів і в системі, що тримає здоров'я портфеля під контролем.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. AGENDA -->
+<section>
+  <span class="kicker">Зміст</span>
+  <h2>Три задачі CEO — три рішення</h2>
+  <div class="grid3" style="margin-top:18px;">
+    <div class="card"><span class="case-badge">Завдання 1</span><h3 style="margin-top:.5em;">Founders Camp</h3><p class="small muted">Канал залучення 2–3 нових фаундерів: воронка, бюджет, строки, kill-критерій.</p></div>
+    <div class="card"><span class="case-badge">Завдання 2</span><h3 style="margin-top:.5em;">Процес бордів</h3><p class="small muted">Стандартний governance-процес, що дає сигнал по 15 бізнесах без бюрократії.</p></div>
+    <div class="card"><span class="case-badge">Завдання 3</span><h3 style="margin-top:.5em;">Тест вертикалі Wisey</h3><p class="small muted">Швидка й дешева перевірка гіпотези з чіткими порогами «так / ні».</p></div>
+  </div>
+</section>
+
+<!-- ===================== CASE 1 ===================== -->
+<section id="case1" data-background-color="#1c1c1c">
+  <div class="title-slide">
+    <span class="kicker">Завдання 1</span>
+    <h1>Founders Camp</h1>
+    <p class="muted" style="margin-top:.6em;">Канал, що з одного кемпу дає 2–3 готових фаундерів під нові бізнеси</p>
+  </div>
+</section>
+
+<section>
+  <span class="kicker">Завдання 1 · Рамка</span>
+  <h2>Проблема та підхід</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Проблема</h3>
+      <p class="small">Щоб дійти до 15 бізнесів, Universe бракує не капіталу, а <strong>людей, готових стати фаундерами</strong>. Потрібен керований канал, а не випадкові знайомства.</p>
+    </div>
+    <div class="card">
+      <h3>Підхід: модель talent-investing</h3>
+      <p class="small">Ставимося до цього як до <strong>рекрутингової воронки</strong>, де на виході — не співробітник, а фаундер. Адаптуємо перевірені моделі <strong>Entrepreneur First / Antler</strong>: збираємо сильних людей, зводимо в команди, даємо тезиси бізнесів і <strong>знижуємо ризики запуску для фаундера</strong>.</p>
+    </div>
+  </div>
+  <div class="card dark" style="margin-top:16px;">
+    <p class="small">Ключова перевага Universe як «institutional co-founder»: готова інфраструктура + капітал + готові бізнес-тезиси знімають значну частину ризику з фаундера-початківця. Це наш головний аргумент у залученні.</p>
+  </div>
+</section>
+
+<section>
+  <span class="kicker">Завдання 1 · Кого шукаємо</span>
+  <h2>ICP фаундера</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Цільові профілі</h3>
+      <ul class="small">
+        <li><strong>Ex-фаундери</strong> — наявність досвіду в розвитку бізнесів</li>
+        <li><strong>Сильні product / growth / engineering ліди</strong> з продуктових компаній</li>
+        <li><strong>Доменні експерти</strong> з комерційним досвідом під конкретні тезиси</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Сигнали / анти-сигнали</h3>
+      <p class="small"><strong>За:</strong> ownership, bias to action, комфорт із невизначеністю, здатність вести за собою людей, готовність до full-time.</p>
+      <p class="small tag-r">Проти: «людина-ідея» без виконання, потреба у стабільності, не готовий до full-time.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="kicker">Завдання 1 · Funnel math</span>
+  <h2>Воронка: рахунок «назад» від цілі 2–3 фаундери</h2>
+  <div class="funnel-step"><div class="funnel-label">Якісний reach (таргетований аутріч + контент + реферали)</div><div class="funnel-bar" style="width:78%">8 000</div><div class="funnel-conv">↓ 6%</div></div>
+  <div class="funnel-step"><div class="funnel-label">Заявки</div><div class="funnel-bar" style="width:55%">500</div><div class="funnel-conv">↓ 24%</div></div>
+  <div class="funnel-step"><div class="funnel-label">Пройшли скринінг (CV + скринінг-дзвінок)</div><div class="funnel-bar" style="width:38%">120</div><div class="funnel-conv">↓ 33%</div></div>
+  <div class="funnel-step"><div class="funnel-label">Пройшли інтерв'ю (панель + кейс)</div><div class="funnel-bar" style="width:24%">40</div><div class="funnel-conv">↓ 60%</div></div>
+  <div class="funnel-step"><div class="funnel-label">Учасники кемпу (24 запрошено → 20 дійшли)</div><div class="funnel-bar" style="width:18%">20</div><div class="funnel-conv">↓ 15-20%</div></div>
+  <div class="funnel-step"><div class="funnel-label">Готові фаундери</div><div class="funnel-bar" style="width:8%;background:var(--green)">2-3</div><div class="funnel-conv">ціль ✓</div></div>
+  <p class="assume"><b>Звідки воронка:</b> побудована зворотним розрахунком від цілі (2–3 фаундери) за логікою accelerator/recruiting-воронок; референси-моделі — <b>Entrepreneur First</b> та <b>Antler</b> (cohort-based talent-investing). Публічних «чистих» конверсій вони не розкривають, тож усі % — гіпотези під <b>локальне</b> калібрування: перший кемп валідує реальні конверсії (див. Gate 1).</p>
+</section>
+
+<section>
+  <span class="kicker">Завдання 1 · Дизайн програми</span>
+  <h2>6-тижневий кемп</h2>
+  <div class="timeline">
+    <div class="tl"><b>Тижд. 1–2</b>Team formation: co-founder matching + вибір тезису з пулу Universe або власний</div>
+    <div class="tl"><b>Тижд. 3–4</b>Validation sprint: 20+ customer-інтерв'ю, smoke-тести, щотижневі чекпойнти</div>
+    <div class="tl"><b>Тижд. 5</b>Build: MVP / тест попиту на реальному трафіку</div>
+    <div class="tl"><b>Тижд. 6</b>Investment Committee: пітч Борду → рішення про інвестицію</div>
+  </div>
+  <p class="small muted" style="margin:10px 0 4px;"><b>Чому 6 тижнів:</b> вистачає на формування команд + валідацію + MVP-сигнал, але достатньо стисло, щоб тримати темп і обмежити витрати на стипендії (діапазон 4–8 тижнів).</p>
+  <div class="grid2" style="margin-top:8px;">
+    <div class="card">
+      <h3>Локація — два варіанти на вибір</h3>
+      <div class="loc">
+        <div class="opt"><b>Київ (HQ)</b><br><span class="xsmall muted">Найбільший локальний пул, дешевше, поруч із core-командою</span></div>
+        <div class="opt"><b>Варшава</b><br><span class="xsmall muted">Доступ до CEE/EU-талантів, релокейт-хаб, другий офіс групи</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>На виході</h3>
+      <p class="small">Готовий фаундер (за потреби — у парі з co-founder), перевірений тезис, перший сигнал попиту та рішення Борду <strong>інвестувати в бізнес</strong> (умови — сума, частка, підтримка — фіксуються в term sheet).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="kicker">Завдання 1 · Економіка</span>
+  <h2>Бюджет одного кемпу (~20 учасників): Київ vs Варшава</h2>
+  <table>
+    <thead><tr><th>Стаття</th><th class="num">Київ, $</th><th class="num">Варшава, $</th></tr></thead>
+    <tbody>
+      <tr><td>Стипендії учасникам (20 × $1.5k / $2.2k × 1.5 міс)</td><td class="num">45 000</td><td class="num">66 000</td></tr>
+      <tr><td>Sourcing + маркетинг</td><td class="num">25 000</td><td class="num">30 000</td></tr>
+      <tr><td>Операції програми</td><td class="num">20 000</td><td class="num">25 000</td></tr>
+      <tr><td>Локація, події, матеріали</td><td class="num">10 000</td><td class="num">18 000</td></tr>
+      <tr><td>Резерв (~15%)</td><td class="num">15 000</td><td class="num">21 000</td></tr>
+      <tr class="total"><td>Разом за кемп</td><td class="num">≈ 115 000</td><td class="num">≈ 160 000</td></tr>
+      <tr class="cpf"><td>Вартість на фаундера (при 2–3)</td><td class="num">≈ $46k</td><td class="num">≈ $64k</td></tr>
+    </tbody>
+  </table>
+  <p class="xsmall muted" style="margin-top:10px;">
+    <b>Sourcing + маркетинг</b> = реклама на залучення заявок + контент/лендинг кемпу + добірні нетворк-івенти + час рекрутера. &nbsp;·&nbsp;
+    <b>Операції програми</b> = куратори програми + гонорари менторів + навчальний контент. &nbsp;·&nbsp;
+    Строк end-to-end першої когорти: <b>~4.5–5 міс</b>.
+  </p>
+  <p class="assume"><b>Припущення:</b> ставки — орієнтири під ринок (Київ — українські розцінки; Варшава — вищі стипендії/локація за вартістю життя в PL). Уточнюються кошторисом перед запуском.</p>
+</section>
+
+<section>
+  <span class="kicker">Завдання 1 · Go / No-Go</span>
+  <h2>Kill-критерії та gate-и</h2>
+  <div class="gate"><strong>Gate 1 — після sourcing (тижд. 6):</strong> якщо якісних заявок &lt; 250 (50% цілі) → <span class="tag-r">пауза</span>, чинимо позиціонування/канали ще до витрат на кемп.</div>
+  <div class="gate"><strong>Gate 2 — після відбору:</strong> якщо &lt; 25 кандидатів пройшли інтерв'ю → зменшуємо кемп або зсуваємо строк.</div>
+  <div class="gate kill"><strong>KILL — після кемпу:</strong> якщо 0–1 фаундер (проти цілі 2–3) <em>і</em> вартість/фаундер &gt; $80k → <span class="tag-r">не запускаємо кемп №2 у цьому форматі</span>; перемикаємось на альтернативний канал (прямий найм EIR, acqui-hire, партнерські реферали).</div>
+  <div class="gate go"><strong>SCALE — наступний кемп:</strong> ≥2 беканих фаундери при прийнятній вартості (орієнтир ≤$60k Київ / ≤$80k Варшава) → плануємо кемп №2 і поступово виходимо на регулярність. Додатковий позитивний сигнал — ≥1 фаундер досягає першого milestone за 6 міс.</div>
+  <p class="assume"><b>EIR</b> = Entrepreneur in Residence — досвідчений підприємець, якого компанія наймає, щоб він збудував новий бізнес зсередини.</p>
+</section>
+
+<section>
+  <span class="kicker">Завдання 1 · Ризики</span>
+  <h2>Ризики та як їх знімаємо</h2>
+  <div class="grid2">
+    <div class="card"><h3>Adverse selection</h3><p class="small">Ризик: подаються лише ті, хто не знайшов роботи. <strong>Рішення:</strong> високий бар + активний аутріч до «пасивних» топів, а не лише вхідний потік.</p></div>
+    <div class="card"><h3>Co-founder pairing не складається</h3><p class="small"><strong>Рішення:</strong> дозволяємо solo-фаундерів, де Universe виступає інституційним co-founder з командою підтримки.</p></div>
+    <div class="card"><h3>Залежність від пулу тезисів</h3><p class="small"><strong>Рішення:</strong> Universe готує валідовані бізнес-тезиси заздалегідь, щоб фаундер не починав з нуля.</p></div>
+    <div class="card"><h3>Утримання після кемпу</h3><p class="small"><strong>Рішення:</strong> чіткий term sheet + vesting + onboarding одразу після Investment Committee.</p></div>
+  </div>
+</section>
+
+<!-- ===================== CASE 2 ===================== -->
+<section id="case2" data-background-color="#1c1c1c">
+  <div class="title-slide">
+    <span class="kicker">Завдання 2</span>
+    <h1>Процес бордів для бізнесів</h1>
+    <p class="muted" style="margin-top:.6em;">Сигнал по 15 бізнесах за обмежений час CEO — без бюрократії для фаундерів</p>
+  </div>
+</section>
+
+<section>
+  <span class="kicker">Завдання 2 · Рамка</span>
+  <h2>Проблема та підхід</h2>
+  <div class="card">
+    <h3>Поточна ситуація</h3>
+    <p class="small">Борди йдуть у різному форматі від бізнесу до бізнесу, підготовка лежить на CEO Universe особисто, а формат не дає стабільного сигналу про здоров'я портфеля.</p>
+  </div>
+  <div class="card" style="margin-top:16px;">
+    <h3>4 принципи рішення</h3>
+    <p class="small"><strong>1. Єдиний формат</strong> (board pack) → порівнянність · <strong>2. Тіринг за станом</strong> → час CEO за принципом виключень · <strong>3. Дані self-serve</strong> (авто з дашбордів) → мінімум підготовки · <strong>4. Рішення, а не статуси</strong> → борд існує, щоб розблоковувати.</p>
+  </div>
+</section>
+
+<section>
+  <span class="kicker">Завдання 2 · Каденс</span>
+  <h2>Тірингова система</h2>
+  <table>
+    <thead><tr><th>Тір</th><th>Стан</th><th>Каденс</th><th>Час CEO</th></tr></thead>
+    <tbody>
+      <tr><td><span class="rag g"></span><strong>Tier A</strong></td><td>Масштабується, здоровий</td><td>Async-апдейт щомісяця + борд 60 хв/квартал</td><td class="num">low touch</td></tr>
+      <tr><td><span class="rag a"></span><strong>Tier B</strong></td><td>Будується / watch</td><td>Чек 45 хв/міс + борд/квартал</td><td class="num">medium</td></tr>
+      <tr><td><span class="rag r"></span><strong>Tier C</strong></td><td>Ризик / ранній</td><td>30 хв раз на 2 тижні + борд/міс</td><td class="num">high</td></tr>
+    </tbody>
+  </table>
+  <div class="card dark" style="margin-top:16px;">
+    <p class="small">Так CEO <strong style="color:#fff">бачить усі 15</strong> через єдиний дашборд, але <strong style="color:#fff">глибокий час витрачає лише на ~3–5 «червоних»</strong> (management by exception). Тіри переглядаються щокварталу за фактичним RAG.</p>
+  </div>
+  <p class="assume"><b>RAG</b> = Red / Amber / Green — «світлофор» статусу: <span class="tag-g">🟢 норма</span>, <span class="tag-a">🟡 увага</span>, <span class="tag-r">🔴 проблема</span>. Дає миттєву візуальну оцінку без занурення в цифри.</p>
+</section>
+
+<section>
+  <span class="kicker">Завдання 2 · Board pack</span>
+  <h2>Один стандартний звіт на 1 сторінку (авто-заповнення)</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Що в паку</h3>
+      <ul class="small">
+        <li>Хедер: бізнес, стадія, тір, загальний <span class="rag g"></span>RAG</li>
+        <li><strong>North Star</strong> + тренд до цілі</li>
+        <li>Фінанси: MRR/ARR, ріст %, gross margin, burn, <strong>runway</strong>, CAC, LTV/CAC, payback</li>
+        <li>Продукт: MAU, активація, retention (когорти), ключова конверсія</li>
+        <li>OKR-прогрес (RAG по цілях)</li>
+        <li>Top-3 wins · Top-3 ризики · <strong>Asks до борду</strong></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>RAG-пороги (приклад, задаються централізовано)</h3>
+      <table>
+        <thead><tr><th>Метрика</th><th>🟢</th><th>🟡</th><th>🔴</th></tr></thead>
+        <tbody>
+          <tr><td>Runway</td><td>&gt;12 міс</td><td>6–12</td><td>&lt;6</td></tr>
+          <tr><td>Ріст MoM</td><td>&gt;10%</td><td>3–10%</td><td>&lt;3%</td></tr>
+          <tr><td>LTV/CAC</td><td>&gt;3</td><td>1.5–3</td><td>&lt;1.5</td></tr>
+          <tr><td>Retention M3</td><td colspan="3" class="xsmall" style="text-align:left">поріг під модель кожного бізнесу</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="assume"><b>Припущення:</b> конкретні пороги — стартові; калібруються під бенчмарки кожної бізнес-моделі (підписка/реклама/маркетплейс).</p>
+</section>
+
+<section>
+  <span class="kicker">Завдання 2 · Дашборд</span>
+  <h2>Portfolio Health — один екран для CEO</h2>
+  <table class="dense">
+    <thead><tr>
+      <th>Бізнес</th><th>Тір</th><th>North Star (тренд)</th><th>ARR</th><th>Ріст MoM</th><th>GM%</th><th>Burn/міс</th><th>Runway</th><th>LTV/CAC</th><th>Payback</th><th>Retention M3</th><th>OKR</th><th>RAG</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><strong>Wisey</strong></td><td>A</td><td>Активні підписники <span class="tag-g">↑14%</span></td><td>$12.5M</td><td><span class="tag-g">+14%</span></td><td>82%</td><td>$0.2M</td><td><span class="tag-g">24 міс</span></td><td><span class="tag-g">3.4</span></td><td>4 міс</td><td>38%</td><td><span class="rag g"></span></td><td><span class="rag g"></span></td></tr>
+      <tr><td><strong>Guru Apps</strong></td><td>A</td><td>MAU <span class="tag-g">↑7%</span></td><td>$18.0M</td><td><span class="tag-a">+7%</span></td><td>78%</td><td>$0.3M</td><td><span class="tag-g">22 міс</span></td><td><span class="tag-a">2.9</span></td><td>6 міс</td><td>31%</td><td><span class="rag a"></span></td><td><span class="rag g"></span></td></tr>
+      <tr><td><strong>FORMA</strong></td><td>B</td><td>Active teams <span class="tag-g">↑9%</span></td><td>$4.2M</td><td><span class="tag-a">+9%</span></td><td>74%</td><td>$0.25M</td><td><span class="tag-a">11 міс</span></td><td><span class="tag-a">2.1</span></td><td>8 міс</td><td>26%</td><td><span class="rag a"></span></td><td><span class="rag a"></span></td></tr>
+      <tr><td><strong>R&D-центр</strong></td><td>C</td><td>Активації <span class="tag-r">→2%</span></td><td>$0.3M</td><td><span class="tag-r">+2%</span></td><td>60%</td><td>$0.15M</td><td><span class="tag-r">5 міс</span></td><td><span class="tag-r">1.2</span></td><td>14 міс</td><td>19%</td><td><span class="rag r"></span></td><td><span class="rag r"></span></td></tr>
+      <tr><td class="muted" colspan="13">… далі рядки нових бізнесів у міру зростання до 15. Сортування за тіром / червоними прапорцями — CEO сканує за ~10 хв і провалюється лише в «червоне».</td></tr>
+    </tbody>
+  </table>
+  <p class="assume"><b>Дані ілюстративні</b> (для демонстрації формату, не реальні показники Universe). Колір клітинки = RAG за порогом метрики; OKR і RAG — підсумкові «світлофори».</p>
+  <div class="card" style="margin-top:12px;"><p class="small"><strong>Стандартна агенда борду</strong> (щоб не готуватись щоразу заново): 1) метрики як pre-read (10 хв) → 2) deep-dive на 1 стратегічну тему → 3) рішення / asks → 4) дії та власники. Pre-read за 48 год; зустріч стартує з питань, а не з презентації.</p></div>
+</section>
+
+<section>
+  <span class="kicker">Завдання 2 · Впровадження</span>
+  <h2>Roadmap і стандартизація процесу</h2>
+  <div class="timeline">
+    <div class="tl"><b>Місяць 1</b>Узгодити набір метрик + RAG-пороги + шаблон; обрати BI/дашборд-інструмент</div>
+    <div class="tl"><b>Місяць 2</b>Інструментувати дані для всіх бізнесів; пілот на 3</div>
+    <div class="tl"><b>Місяць 3</b>Розкотити на всі; дашборд CEO live</div>
+    <div class="tl"><b>Далі</b>Щокварталу донастроювати пороги й тіри</div>
+  </div>
+  <div class="grid2" style="margin-top:18px;">
+    <div class="card"><h3>Як знято бюрократію</h3><p class="small">Дані тягнуться автоматично. Фаундер додає лише: 3 wins, 3 ризики, asks, 1 стратегічну тему → <strong>30–60 хв підготовки</strong> замість днів на слайди.</p></div>
+    <div class="card"><h3>Метрики успіху процесу</h3><p class="small">Огляд портфеля можливий за &lt; пів дня/міс · % ризиків, спійманих <strong>до</strong> кризи · час підготовки фаундера &lt; 1 год/міс.</p></div>
+  </div>
+</section>
+
+<!-- ===================== CASE 3 ===================== -->
+<section id="case3" data-background-color="#1c1c1c">
+  <div class="title-slide">
+    <span class="kicker">Завдання 3</span>
+    <h1>Wisey: тест нової вертикалі</h1>
+    <p class="muted" style="margin-top:.6em;">Перевірка гіпотези персональних тестів</p>
+  </div>
+</section>
+
+<section>
+  <span class="kicker">Завдання 3 · Гіпотеза</span>
+  <h2>Гіпотеза у форматі, що перевіряється</h2>
+  <div class="card dark" style="margin-bottom:16px;">
+    <p class="small">«Ми віримо, що аудиторія Wisey (люди, що працюють над собою) <strong style="color:#fff">захоче проходити персоналізований тест-онбординг і платити</strong> за продукт на його основі. Доказ — smoke/landing-тест конвертує в lead ≥ X% і в оплату ≥ Y% при CAC ≤ $Z, за ≤ 2 тижні та ≤ $5k бюджету.»</p>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>Чому це логічно</h3><p class="small">Тест-як-воронка — перевірений механік у self-growth (Noom, BetterMe, BetterHelp): персоналізований результат → підписка. Reuse бренду й аудиторії Wisey робить тест дешевим.</p></div>
+    <div class="card"><h3>Принцип</h3><p class="small">Lean: <strong>Build–Measure–Learn</strong>. Найдешевші тести спершу, реальні гроші — лише коли є сигнал. Рішення — за заздалегідь заданими порогами.</p></div>
+  </div>
+</section>
+
+<section>
+  <span class="kicker">Завдання 3 · План тесту</span>
+  <h2>4 стадії — від найдешевшого до платного</h2>
+  <div class="card" style="margin-bottom:10px;"><p class="small"><span class="step-num">0</span><strong>Desk research</strong> (1–2 дні, ~$0): пошуковий попит, воронки конкурентів, наявні дані Wisey по quiz-онбордингу.</p></div>
+  <div class="card" style="margin-bottom:10px;"><p class="small"><span class="step-num">1</span><strong>Smoke test / fake door</strong> (3–5 днів, ~$1–2k): лендинг + платний трафік на «тест». Міряємо CTR, CPC, landing→старт тесту, →email (lead). Продукту ще нема — «результат скоро» / waitlist.</p></div>
+  <div class="card" style="margin-bottom:10px;"><p class="small"><span class="step-num">2</span><strong>Wizard of Oz / concierge</strong> (1 тижд., ~$2–3k): реально віддаємо тест (наявний асесмент, ручний скоринг), повний результат — за підпискою / pre-sale. Міряємо completion → paywall → намір/оплату.</p></div>
+  <div class="card"><p class="small"><span class="step-num">3</span><strong>Pre-sale / paywall MVP</strong>: беремо реальні гроші (або trial) → реальна конверсія в платіж + ранній сигнал retention.</p></div>
+  <p class="assume"><b>Стек (стадії 0–2 — поза застосунком, майже без розробки):</b> сторінку-лендинг збираємо на <b>конструкторі сайтів без коду</b> (Webflow / Unbounce — drag-and-drop редактори); сам тест — у <b>Typeform</b> (онлайн-конструктор квізів/опитувань); персональний результат на стадії Wizard of Oz <b>вручну готує коуч Wisey</b>. Інтеграція в сам застосунок потрібна лише на стадії 3 і тільки після рішення GO.</p>
+</section>
+
+<section>
+  <span class="kicker">Завдання 3 · Метрики</span>
+  <h2>Воронка тесту та що міряємо</h2>
+  <table>
+    <thead><tr><th>Етап воронки</th><th>Метрика</th></tr></thead>
+    <tbody>
+      <tr><td>Реклама</td><td>CPM, CPC, CTR</td></tr>
+      <tr><td>Лендинг → старт тесту</td><td>% старту</td></tr>
+      <tr><td>Старт → завершення тесту</td><td>% completion</td></tr>
+      <tr><td>Завершення → lead (email)</td><td>% lead</td></tr>
+      <tr><td>Lead → paywall → оплата</td><td>% paid, <strong>CAC</strong></td></tr>
+      <tr><td>Платіж → ранній retention</td><td>D7 / тиждень-1 retention</td></tr>
+    </tbody>
+  </table>
+  <div class="card" style="margin-top:14px;"><p class="small"><strong>Ключове порівняння:</strong> CAC нового механіку проти поточного blended CAC Wisey та проти LTV → <strong>payback period</strong>. Вертикаль життєздатна лише якщо економіка не гірша за поточну.</p></div>
+</section>
+
+<section>
+  <span class="kicker">Завдання 3 · Пороги рішення</span>
+  <h2>Go / Iterate / Kill — з конкретними числами</h2>
+  <div class="gate go"><strong>GO (масштабуємо):</strong> головний критерій — <strong>економіка не гірша за поточну</strong>: CAC ≤ цільового Wisey і <strong>payback &lt; 3 міс</strong>, а воронка <strong>≥ поточної воронки Wisey</strong>. Орієнтовні floor-пороги: старт тесту ≥ 35% · завершення ≥ 60% · завершення→оплата ≥ бенчмарк Wisey.</div>
+  <div class="gate"><strong>ITERATE (доопрацювати):</strong> якщо результат <em>близький, але не дотягує до GO</em> (у межах ~20%) — не вбиваємо й не масштабуємо, а робимо 1–2 короткі ітерації (нові креативи / офер / ціна, ще ≤ $3k) і вимірюємо ще раз. Дотягли до GO → йдемо далі; ні → KILL.</div>
+  <div class="gate kill"><strong>KILL (ні):</strong> ключові метрики &lt; ~50% цілі <em>або</em> CAC &gt; 1.5× цільового навіть після 2 ітерацій → <span class="tag-r">не будуємо вертикаль</span>.</div>
+  <div class="card" style="margin-top:8px;"><p class="small"><strong>Валідність:</strong> рішення приймаємо лише при ≥ <strong>1 000</strong> візитів лендингу, ≥ <strong>100</strong> завершень тесту й ≥ <strong>~30 оплат</strong> — щоб не читати шум.</p></div>
+  <p class="assume"><b>Припущення:</b> усі % — стартові орієнтири, а не самоціль. Вирішальний якір — <b>побити поточну воронку та юніт-економіку Wisey</b>; конкретні floor-и калібруються на реальних CAC/LTV/retention Wisey перед запуском.</p>
+</section>
+
+<section>
+  <span class="kicker">Завдання 3 · Підсумок</span>
+  <h2>Бюджет, строки, команда</h2>
+  <div class="grid3">
+    <div class="card"><h3>Бюджет</h3><p style="font-size:1.4em;font-weight:800;color:var(--blue);">~$5–8k</p><p class="small muted">сумарно на всі стадії до реального сигналу</p></div>
+    <div class="card"><h3>Строк</h3><p style="font-size:1.4em;font-weight:800;color:var(--blue);">2–3 тижні</p><p class="small muted">до першого рішення go/iterate/kill</p></div>
+    <div class="card"><h3>Команда (мінімальна)</h3><p class="small">1 growth-маркетолог (реклама + офер), 1 дизайнер (лендинг), part-time аналітик, 1 коуч Wisey для ручної видачі результатів (concierge) + <strong>~0.2 інженера</strong> на трекінг/інтеграцію.</p></div>
+  </div>
+  <div class="card dark" style="margin-top:16px;"><p class="small"><strong style="color:#fff">Чому майже без розробки:</strong> валідація (стадії 0–2) йде <strong style="color:#fff">окремою воронкою поза застосунком</strong> (лендинг + Typeform + ручна видача) — інженер майже не потрібен. Повна інтеграція в застосунок — лише після рішення GO. «Коуч для concierge» = реальний фахівець Wisey, який на стадії Wizard of Oz <strong style="color:#fff">вручну опрацьовує результати тесту</strong>, імітуючи «продукт» до його побудови.</p></div>
+</section>
+
+<!-- ===================== CLOSE ===================== -->
+<section data-background-color="#1c1c1c">
+  <div class="title-slide center" style="align-items:center;">
+    <h1 style="font-size:2.4em;">Дякую</h1>
+    <p class="muted">Готовий обговорити будь-яке завдання глибше та відкалібрувати цифри на даних Universe.</p>
+  </div>
+</section>
+
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash:true,
+    slideNumber:'c/t',
+    width:1280,
+    height:720,
+    margin:0.04,
+    transition:'slide',
+    controls:true,
+    progress:true
+  });
+</script>
+</body>
+</html>
